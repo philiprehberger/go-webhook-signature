@@ -1,0 +1,71 @@
+# go-webhook-signature
+
+HMAC-SHA256 webhook signature generation and verification with HTTP middleware for Go.
+
+## Installation
+
+```bash
+go get github.com/philiprehberger/go-webhook-signature
+```
+
+## Usage
+
+### Sign a Payload
+
+```go
+import "github.com/philiprehberger/go-webhook-signature"
+
+signed := webhook.Sign(`{"event":"order.created"}`, "whsec_abc123")
+
+fmt.Println(signed.Signature) // HMAC hex digest
+fmt.Println(signed.Timestamp) // Unix timestamp
+fmt.Println(signed.ToHeader()) // "t=1234567890,sha256=abc..."
+```
+
+### Verify a Signature
+
+```go
+sig, ts, err := webhook.ParseHeader(r.Header.Get("X-Webhook-Signature"))
+if err != nil {
+    // handle error
+}
+
+err = webhook.Verify(body, "whsec_abc123", sig, ts, 5*time.Minute)
+if err != nil {
+    // handle error
+}
+```
+
+### HTTP Middleware
+
+```go
+mux := http.NewServeMux()
+mux.HandleFunc("/webhook", handleWebhook)
+
+protected := webhook.VerifyMiddleware("whsec_abc123", "X-Webhook-Signature", 5*time.Minute)(mux)
+http.ListenAndServe(":8080", protected)
+```
+
+### Error Handling
+
+```go
+err := webhook.Verify(payload, secret, sig, ts, maxAge)
+if errors.Is(err, webhook.ErrSignatureMismatch) {
+    // invalid signature
+}
+
+var expired *webhook.SignatureExpiredError
+if errors.As(err, &expired) {
+    fmt.Printf("Signature too old: %s > %s\n", expired.Age, expired.MaxAge)
+}
+```
+
+### Disable Age Check
+
+```go
+webhook.Verify(payload, secret, sig, ts, 0) // no age check
+```
+
+## License
+
+MIT
