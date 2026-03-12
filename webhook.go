@@ -2,11 +2,13 @@
 package webhook
 
 import (
+	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -122,15 +124,16 @@ func VerifyMiddleware(secret string, headerName string, maxAge time.Duration) fu
 				return
 			}
 
-			// Read body — caller should use a body-caching middleware if needed
-			buf := make([]byte, r.ContentLength)
-			_, err = r.Body.Read(buf)
-			if err != nil && err.Error() != "EOF" {
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
 				http.Error(w, "failed to read body", http.StatusBadRequest)
 				return
 			}
 
-			if err := Verify(string(buf), secret, sig, ts, maxAge); err != nil {
+			// Restore body so downstream handlers can read it
+			r.Body = io.NopCloser(bytes.NewReader(body))
+
+			if err := Verify(string(body), secret, sig, ts, maxAge); err != nil {
 				http.Error(w, err.Error(), http.StatusUnauthorized)
 				return
 			}

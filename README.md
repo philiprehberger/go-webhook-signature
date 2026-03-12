@@ -46,6 +46,8 @@ protected := webhook.VerifyMiddleware("whsec_abc123", "X-Webhook-Signature", 5*t
 http.ListenAndServe(":8080", protected)
 ```
 
+The middleware restores the request body after reading it, so downstream handlers can still access `r.Body`.
+
 ### Error Handling
 
 ```go
