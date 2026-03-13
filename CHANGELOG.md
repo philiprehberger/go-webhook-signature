@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Fix `ParseHeader` accepting empty `sha256=` value as valid signature
+
 ## 0.2.0
 
 - Fix middleware panic when `Content-Length` header is missing or chunked

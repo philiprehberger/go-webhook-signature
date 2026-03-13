@@ -101,7 +101,7 @@ func ParseHeader(header string) (signature string, timestamp int64, err error) {
 	}
 
 	signature, ok = parts["sha256"]
-	if !ok {
+	if !ok || signature == "" {
 		return "", 0, fmt.Errorf("webhook: no sha256 signature found in header")
 	}
 

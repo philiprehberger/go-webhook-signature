@@ -134,6 +134,16 @@ func TestParseHeaderInvalidTimestamp(t *testing.T) {
 	}
 }
 
+func TestParseHeaderEmptySignature(t *testing.T) {
+	_, _, err := ParseHeader("t=1700000000,sha256=")
+	if err == nil {
+		t.Fatal("expected error for empty sha256 value")
+	}
+	if !strings.Contains(err.Error(), "no sha256 signature") {
+		t.Fatalf("unexpected error: %v", err)
+	}
+}
+
 func TestParseHeaderEmpty(t *testing.T) {
 	_, _, err := ParseHeader("")
 	if err == nil {
