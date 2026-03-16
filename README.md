@@ -1,5 +1,9 @@
 # go-webhook-signature
 
+[![CI](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/philiprehberger/go-webhook-signature.svg)](https://pkg.go.dev/github.com/philiprehberger/go-webhook-signature)
+[![License](https://img.shields.io/github/license/philiprehberger/go-webhook-signature)](LICENSE)
+
 HMAC-SHA256 webhook signature generation and verification with HTTP middleware for Go.
 
 ## Installation
@@ -66,6 +70,13 @@ if errors.As(err, &expired) {
 
 ```go
 webhook.Verify(payload, secret, sig, ts, 0) // no age check
+```
+
+## Development
+
+```bash
+go test ./...
+go vet ./...
 ```
 
 ## License
