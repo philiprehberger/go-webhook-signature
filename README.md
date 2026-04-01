@@ -1,6 +1,8 @@
 # go-webhook-signature
 
-[![CI](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml) [![Go Reference](https://pkg.go.dev/badge/github.com/philiprehberger/go-webhook-signature.svg)](https://pkg.go.dev/github.com/philiprehberger/go-webhook-signature) [![License](https://img.shields.io/github/license/philiprehberger/go-webhook-signature)](LICENSE) [![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
+[![CI](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/go-webhook-signature/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/philiprehberger/go-webhook-signature.svg)](https://pkg.go.dev/github.com/philiprehberger/go-webhook-signature)
+[![Last updated](https://img.shields.io/github/last-commit/philiprehberger/go-webhook-signature)](https://github.com/philiprehberger/go-webhook-signature/commits/main)
 
 HMAC-SHA256 webhook signature generation and verification with HTTP middleware for Go
 
@@ -93,6 +95,24 @@ go test ./...
 go vet ./...
 ```
 
+## Support
+
+If you find this project useful:
+
+⭐ [Star the repo](https://github.com/philiprehberger/go-webhook-signature)
+
+🐛 [Report issues](https://github.com/philiprehberger/go-webhook-signature/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+
+💡 [Suggest features](https://github.com/philiprehberger/go-webhook-signature/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+
+❤️ [Sponsor development](https://github.com/sponsors/philiprehberger)
+
+🌐 [All Open Source Projects](https://philiprehberger.com/open-source-packages)
+
+💻 [GitHub Profile](https://github.com/philiprehberger)
+
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/philiprehberger)
+
 ## License
 
-MIT
+[MIT](LICENSE)
